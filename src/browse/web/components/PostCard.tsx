@@ -111,6 +111,7 @@ function PostCard(props: PostCardProps) {
   const externalEmbed = useMemo(() => {
     // Only YouTube embeds for now
     // Vimeo can't be reliably embedded due to CORS restrictions
+    /*
     if (post.embed && !post.embed.downloaded?.path && post.embed.html && post.embed.provider?.toLowerCase() === 'youtube') {
       const parser = new DOMParser();
       const doc = parser.parseFromString(post.embed.html, 'text/html');
@@ -140,6 +141,7 @@ function PostCard(props: PostCardProps) {
         </div>
       )
     }
+    */
     return null;
   }, [post]);
 
@@ -175,6 +177,11 @@ function PostCard(props: PostCardProps) {
         }
       </Stack>
       { audio }
+      {
+        post.embed && post.embed.url ? (
+          <Link to={post.embed.url}>{post.embed.url}</Link>
+        ) : null
+      }
       <Card.Text dangerouslySetInnerHTML={{__html: post.content || ''}} />
       { attachments }
     </Stack>
